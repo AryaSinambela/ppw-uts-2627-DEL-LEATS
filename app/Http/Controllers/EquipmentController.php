@@ -44,7 +44,7 @@ class EquipmentController extends Controller
             'judul' => 'required|string'
         ]);
 
-        // Check if Equipment exists and is available
+        
         $Equipment = Equipment::where('judul', $request->judul)->first();
         if (!$Equipment) {
             return response()->json(['error' => 'Buku tidak ditemukan'], 404);
@@ -54,7 +54,7 @@ class EquipmentController extends Controller
             return response()->json(['error' => 'Buku sudah dipinjam'], 400);
         }
 
-        // Create LoanRequest record with Equipment_id
+        
         LoanRequest::create([
             'Equipment_id' => $Equipment->id,
             'nama' => $request->nama,
@@ -62,7 +62,7 @@ class EquipmentController extends Controller
             'judul' => $request->judul
         ]);
 
-        // Update Equipment status to 'Dipinjam'
+        
         $Equipment->update(['status' => 'Dipinjam']);
 
         return response()->json(['success' => true, 'message' => 'Buku berhasil dipinjam']);
@@ -79,12 +79,12 @@ class EquipmentController extends Controller
             return response()->json(['error' => 'Peminjaman tidak ditemukan'], 404);
         }
 
-        // Update Equipment status back to 'Tersedia'
+        
         if ($LoanRequest->Equipment) {
             $LoanRequest->Equipment->update(['status' => 'Tersedia']);
         }
 
-        // Delete LoanRequest record
+        
         $LoanRequest->delete();
 
         return response()->json(['success' => true, 'message' => 'Buku berhasil dikembalikan']);
@@ -92,10 +92,10 @@ class EquipmentController extends Controller
 
     public function clearLoanRequestRequest(Request $request)
     {
-        // Get all LoanRequestRequest with Equipments
+
         $LoanRequestRequest = LoanRequest::with('Equipment')->get();
         
-        // Update all borrowed Equipments to 'Tersedia'
+     
         foreach ($LoanRequestRequest as $LoanRequest) {
             if ($LoanRequest->Equipment) {
                 $LoanRequest->Equipment->update(['status' => 'Tersedia']);

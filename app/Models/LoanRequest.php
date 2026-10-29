@@ -5,25 +5,29 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Loan extends Model
+class LoanRequest extends Model
 {
+    /**
+     * Run the migrations.
+     */
     use HasFactory;
-
+    
+    // Hapus properti 'id' dari fillable
     protected $fillable = [
-        'id',
-        'equipment_id',
+        'equipment_id', 
         'borrower_name', 
-        'borrower_nim',
-        'borrower_email',
-        'loan_date',
-        'expected_return_date',
-        'purpose',
+        'borrower_nim', 
+        'borrower_email', 
+        'loan_date', 
+        'expected_return_date', 
+        'purpose', 'status', 
         'total_estimated_fee'
     ];
 
-
-    public function book()
-    {
-        return $this->belongsTo(Book::class);
+        /**
+     * Reverse the migrations.
+     */
+    public function equipment() {
+        return $this->belongsTo(Equipment::class);
     }
 }

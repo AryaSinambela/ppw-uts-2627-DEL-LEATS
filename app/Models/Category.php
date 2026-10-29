@@ -1,18 +1,15 @@
 <?php
-
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Borrow extends Model
+class Category extends Model
 {
-    protected $fillable = [
-        'id',
-        'nama',
-        'category_id', 
-        'year'
-        
-    ];
+    use HasFactory;
+    protected $fillable = ['name', 'code'];
 
+    public function equipments() {
+        return $this->hasMany(Equipment::class);
     }
-
+}

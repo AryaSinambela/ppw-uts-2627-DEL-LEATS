@@ -1,12 +1,15 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BookController;
+use App\Http\Controllers\EquipmentController;
+use App\Http\Controllers\LoanController;
 
-Route::get('/', [BookController::class, 'index'])->name('home');
-Route::get('/borrow', [BookController::class, 'borrow'])->name('borrow');
+Route::get('/', function () { return view('welcome'); });
 
-// API routes for loans
-Route::post('/api/loans', [BookController::class, 'storeLoan']);
-Route::delete('/api/loans/{id}', [BookController::class, 'returnBook']);
-Route::delete('/api/loans', [BookController::class, 'clearLoans']);
+// RESTful Routing
+Route::get('/equipments', [EquipmentController::class, 'index']);
+Route::get('/equipments/create', [EquipmentController::class, 'create']);
+Route::post('/equipments', [EquipmentController::class, 'store']);
+Route::get('/equipments/{id}', [EquipmentController::class, 'show']);
+
+Route::get('/loans/create', [LoanController::class, 'create']);
+Route::post('/loans', [LoanController::class, 'store']);
