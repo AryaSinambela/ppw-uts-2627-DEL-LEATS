@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('_categories', function (Blueprint $table) {
+        Schema::create('books', function (Blueprint $table) {
             $table->id();
+            $table->string('nama');
+            $table->string('kategori_id');
+            $table->integer('year');
+            $table->enum('status', ['available', 'borrowed'])->default('available');
             $table->timestamps();
         });
     }

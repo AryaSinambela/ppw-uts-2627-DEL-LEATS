@@ -11,9 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('loan_requests', function (Blueprint $table) {
+        Schema::create('borrows', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('equipment_id');
+            $table->string('borrower_name');
+            $table->string('purpose');
+            $table->string('borrower_email');
+            $table->foreignId('borrower_nim')->constrained()->onDelete('cascade');
+            $table->timestamp('loan_date');
+            $table->timestamp('returned_at')->nullable();
+            $table->timestamps(total_estimated_fee);
         });
     }
 
@@ -22,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('loan_requests');
+        Schema::dropIfExists('borrows');
     }
 };

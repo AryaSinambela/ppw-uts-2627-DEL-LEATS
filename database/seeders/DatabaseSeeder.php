@@ -2,24 +2,26 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Book;
 
-class DatabaseSeeder extends Seeder
+class BookSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $books = [
+            ['judul' => 'Pemrograman Web', 'penulis' => 'Andi', 'tahun' => 2021, 'status' => 'Tersedia'],
+            ['judul' => 'Jaringan Komputer', 'penulis' => 'Budi', 'tahun' => 2020, 'status' => 'Tersedia'],
+            ['judul' => 'Basis Data', 'penulis' => 'Citra', 'tahun' => 2019, 'status' => 'Tersedia'],
+            ['judul' => 'Algoritma dan Struktur Data', 'penulis' => 'Dewi', 'tahun' => 2018, 'status' => 'Tersedia'],
+            ['judul' => 'Pabwe', 'penulis' => 'cina', 'tahun' => 2018, 'status' => 'Tersedia'],
+        ];
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        foreach ($books as $book) {
+            Book::create($book);
+        }
     }
 }

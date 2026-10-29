@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('equipments', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('loans', function (Blueprint $table) {
+            $table->unsignedBigInteger('equipment_id')->after('id');
+            $table->foreign('equipment_id')->references('id')->on('equipment')->onDelete('cascade');
         });
     }
 
@@ -22,6 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('equipments');
+        Schema::table('loans', function (Blueprint $table) {
+            $table->dropForeign(['equipment_id']);
+            $table->dropColumn('equipment_id');
+        });
     }
 };
